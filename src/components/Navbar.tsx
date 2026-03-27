@@ -44,7 +44,9 @@ export default function Navbar() {
                 alt="CWB Partners"
                 width={140}
                 height={40}
-                className="h-8 lg:h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+                className={`h-8 lg:h-10 w-auto transition-all duration-300 group-hover:scale-105 ${
+                  !scrolled ? "brightness-0 invert opacity-90" : ""
+                }`}
               />
             </a>
 
@@ -57,12 +59,12 @@ export default function Navbar() {
                   className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors duration-300 group"
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent rounded-full transition-all duration-300 group-hover:w-6" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-brand-yellow rounded-full transition-all duration-300 group-hover:w-6" />
                 </a>
               ))}
               <button
                 onClick={() => setModalOpen(true)}
-                className="ml-4 px-6 py-2.5 bg-accent hover:bg-accent-light text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 btn-shine"
+                className="ml-4 px-6 py-2.5 bg-brand-yellow hover:bg-brand-yellow-dark text-primary-dark text-sm font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-brand-yellow/30 btn-shine"
               >
                 Solicitar Orçamento
               </button>
