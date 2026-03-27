@@ -14,10 +14,13 @@ const navLinks = [
   { href: "#contato", label: "Contato" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenModal: () => void;
+}
+
+export default function Navbar({ onOpenModal }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -63,7 +66,7 @@ export default function Navbar() {
                 </a>
               ))}
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={onOpenModal}
                 className="ml-4 px-6 py-2.5 bg-brand-yellow hover:bg-brand-yellow-dark text-primary-dark text-sm font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-brand-yellow/30 btn-shine"
               >
                 Solicitar Orçamento
@@ -124,9 +127,9 @@ export default function Navbar() {
                 <button
                   onClick={() => {
                     setMobileOpen(false);
-                    setModalOpen(true);
+                    onOpenModal();
                   }}
-                  className="w-full mt-4 px-6 py-3 bg-accent text-white font-semibold rounded-lg"
+                  className="w-full mt-4 px-6 py-3 bg-brand-yellow text-primary-dark font-bold rounded-lg"
                 >
                   Solicitar Orçamento
                 </button>
@@ -135,8 +138,6 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </motion.nav>
-
-      <QuoteModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }

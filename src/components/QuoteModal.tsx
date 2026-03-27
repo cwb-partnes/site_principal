@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface QuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialService?: string;
 }
 
 const serviceOptions = [
@@ -18,7 +19,11 @@ const serviceOptions = [
   "Outros serviços",
 ];
 
-export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
+export default function QuoteModal({
+  isOpen,
+  onClose,
+  initialService,
+}: QuoteModalProps) {
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -27,6 +32,12 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     servico: "",
     mensagem: "",
   });
+
+  useEffect(() => {
+    if (initialService) {
+      setFormData((prev) => ({ ...prev, servico: initialService }));
+    }
+  }, [initialService]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

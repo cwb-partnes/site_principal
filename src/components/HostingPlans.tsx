@@ -45,7 +45,11 @@ const plans = [
   },
 ];
 
-export default function HostingPlans() {
+interface HostingPlansProps {
+  onOpenModal: (service?: string) => void;
+}
+
+export default function HostingPlans({ onOpenModal }: HostingPlansProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -150,10 +154,10 @@ export default function HostingPlans() {
                 ))}
               </ul>
 
-              <a
-                href={plan.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() =>
+                  onOpenModal(`Hospedagem Profissional (${plan.name})`)
+                }
                 className={`block w-full text-center py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 btn-shine ${
                   plan.popular
                     ? "bg-accent hover:bg-accent-light text-white shadow-lg shadow-accent/30"
@@ -161,7 +165,7 @@ export default function HostingPlans() {
                 }`}
               >
                 Quero esse plano
-              </a>
+              </button>
             </motion.div>
           ))}
         </div>

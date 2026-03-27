@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -7,12 +10,20 @@ import Differentials from "@/components/Differentials";
 import HostingPlans from "@/components/HostingPlans";
 import WhatsappCta from "@/components/WhatsappCta";
 import Footer from "@/components/Footer";
+import QuoteModal from "@/components/QuoteModal";
 import Script from "next/script";
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [initialService, setInitialService] = useState("");
+
+  const openModal = (service?: string) => {
+    if (service) setInitialService(service);
+    setModalOpen(true);
+  };
+
   return (
     <>
-      {/* Google Analytics */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-RN3EGGZ2CW"
         strategy="afterInteractive"
@@ -26,47 +37,25 @@ export default function Home() {
         `}
       </Script>
 
-      {/* Google Ads */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-792332754"
-        strategy="afterInteractive"
-      />
-      <Script id="gads" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'AW-792332754');
-        `}
-      </Script>
-
-      {/* Facebook Pixel */}
-      <Script id="fb-pixel" strategy="afterInteractive">
-        {`
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '602663500940932');
-          fbq('track', 'PageView');
-        `}
-      </Script>
-
-      <Navbar />
+      <Navbar onOpenModal={() => openModal()} />
       <main>
         <Hero />
         <Services />
         <Process />
         <CtaBanner />
         <Differentials />
-        <HostingPlans />
+        <HostingPlans onOpenModal={openModal} />
         <WhatsappCta />
       </main>
       <Footer />
+      <QuoteModal
+        isOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setInitialService("");
+        }}
+        initialService={initialService}
+      />
     </>
   );
 }
