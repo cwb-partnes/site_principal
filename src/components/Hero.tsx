@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Counter from "./Counter";
 
 const phrases = [
   "Sites Profissionais",
@@ -127,7 +128,7 @@ export default function Hero() {
                   transition={{ delay: 0.6 + i * 0.15 }}
                 >
                   <div className="text-2xl lg:text-3xl font-bold text-white font-[family-name:var(--font-outfit)]">
-                    {stat.value}
+                    <Counter value={stat.value} />
                   </div>
                   <div className="text-xs lg:text-sm text-white/50 mt-1">
                     {stat.label}
