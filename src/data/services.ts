@@ -337,7 +337,38 @@ export const categories: Category[] = [
           "E-mails Profissionais",
         ],
         fullDescription:
-          "Garantimos a tranquilidade da sua operação digital. Oferecemos suporte contínuo e manutenção proativa para que seu site nunca fique fora do ar ou vulnerável. Cuidamos de toda a infraestrutura, desde a configuração de servidores e certificados SSL até a correção rápida de problemas e atualizações de segurança. Com a CWB Partners, você foca no seu negócio enquanto nós cuidamos da tecnologia.",
+          "Sua plataforma digital não pode parar. Oferecemos um serviço de manutenção proativa e infraestrutura robusta para garantir que seu site ou sistema esteja sempre online, seguro e performático. Cuidamos desde a configuração de servidores na nuvem (AWS, Google Cloud, Azure) até a implementação de firewalls, backups automáticos e monitoramento 24/7. Com nossa gestão, você foca no seu negócio enquanto nós garantimos a integridade tecnológica da sua operação.",
+        features: [
+          {
+            title: "Hospedagem Gerenciada",
+            description:
+              "Servidores de alta performance com configuração otimizada para sua aplicação.",
+            icon: "Zap",
+          },
+          {
+            title: "Segurança de Dados",
+            description:
+              "Implementação de SSL, Firewall e proteção contra ataques DDoS.",
+            icon: "Lock",
+          },
+          {
+            title: "Monitoramento 24/7",
+            description:
+              "Sistemas de alerta que nos notificam instantaneamente sobre qualquer instabilidade.",
+            icon: "Search",
+          },
+          {
+            title: "Backups Automatizados",
+            description:
+              "Sua informação protegida com rotinas de backup diárias em múltiplos locais.",
+            icon: "Smartphone",
+          },
+        ],
+        gallery: [
+          "/img/infra-hero.png",
+          "/img/infra-security.png",
+          "/img/infra-uptime.png",
+        ],
         metadata: {
           title: "Manutenção de Sites e Infraestrutura Web | CWB Partners",
           description:
