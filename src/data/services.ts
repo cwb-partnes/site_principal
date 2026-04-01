@@ -100,6 +100,37 @@ export const categories: Category[] = [
         ],
         fullDescription:
           "Transformamos sua ideia em uma máquina de vendas online. Nossas soluções de e-commerce são focadas na experiência do usuário (UX) para maximizar as conversões. Implementamos checkouts simplificados e transparentes, integrações seguras com os principais meios de pagamento (Cartão, PIX, Boleto) e sistemas de logística automatizados. Seja para vender produtos físicos ou digitais, criamos uma plataforma escalável que cresce junto com o seu negócio.",
+        features: [
+          {
+            title: "Checkout de Alta Conversão",
+            description:
+              "Processo de compra simplificado para reduzir o abandono de carrinho.",
+            icon: "Zap",
+          },
+          {
+            title: "Pagamentos Seguros",
+            description:
+              "Integração SSL e gateways de pagamento com máxima proteção.",
+            icon: "Lock",
+          },
+          {
+            title: "Gestão de Inventário",
+            description:
+              "Controle total de produtos, estoque e SKUs em um só lugar.",
+            icon: "Search",
+          },
+          {
+            title: "Dashboard de Vendas",
+            description:
+              "Acompanhe métricas e resultados em tempo real para escalar seu negócio.",
+            icon: "Zap",
+          },
+        ],
+        gallery: [
+          "/img/ecommerce-hero.png",
+          "/img/ecommerce-secure.png",
+          "/img/ecommerce-analytics.png",
+        ],
         metadata: {
           title: "Criação de Lojas Virtuais e E-commerce | CWB Partners",
           description:
