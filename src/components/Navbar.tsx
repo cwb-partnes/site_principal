@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { categories } from "@/data/services";
 import QuoteModal from "./QuoteModal";
 
 const navLinks = [
@@ -23,6 +24,8 @@ interface NavbarProps {
 export default function Navbar({ onOpenModal }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isServicesHovered, setIsServicesHovered] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -60,14 +63,84 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
-                <Link
+                <div
                   key={link.href}
-                  href={isHome ? link.href : `/${link.href}`}
-                  className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors duration-300 group"
+                  className="relative group"
+                  onMouseEnter={() =>
+                    link.label === "Serviços" && setIsServicesHovered(true)
+                  }
+                  onMouseLeave={() =>
+                    link.label === "Serviços" && setIsServicesHovered(false)
+                  }
                 >
-                  {link.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-brand-yellow rounded-full transition-all duration-300 group-hover:w-6" />
-                </Link>
+                  <Link
+                    href={isHome ? link.href : `/${link.href}`}
+                    className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors duration-300 flex items-center gap-1"
+                  >
+                    {link.label}
+                    {link.label === "Serviços" && (
+                      <svg
+                        className={`w-3 h-3 transition-transform duration-300 ${isServicesHovered ? "rotate-180" : ""}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    )}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-brand-yellow rounded-full transition-all duration-300 group-hover:w-6" />
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  {link.label === "Serviços" && (
+                    <AnimatePresence>
+                      {isServicesHovered && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-[500px]"
+                        >
+                          <div className="glass shadow-2xl shadow-black/50 border border-white/10 rounded-2xl p-6 overflow-hidden">
+                            <div className="grid grid-cols-2 gap-8 relative z-10">
+                              {categories.map((category) => (
+                                <div key={category.id} className="space-y-3">
+                                  <h4 className="text-[10px] uppercase tracking-widest text-brand-yellow font-bold opacity-70">
+                                    {category.label}
+                                  </h4>
+                                  <ul className="space-y-2">
+                                    {category.services.map((service) => (
+                                      <li key={service.slug}>
+                                        <Link
+                                          href={`/servicos/${service.slug}`}
+                                          className="group/item flex flex-col gap-1 p-2 -m-2 rounded-xl hover:bg-white/5 transition-all duration-300"
+                                        >
+                                          <span className="text-sm font-semibold text-white/90 group-hover/item:text-brand-yellow transition-colors">
+                                            {service.title}
+                                          </span>
+                                          <span className="text-[10px] text-white/50 line-clamp-1 group-hover/item:text-white/70 transition-colors">
+                                            {service.description}
+                                          </span>
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-yellow/5 blur-3xl rounded-full" />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
+                </div>
               ))}
               <button
                 onClick={onOpenModal}
@@ -121,14 +194,73 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
+                    className="space-y-1"
                   >
-                    <Link
-                      href={isHome ? link.href : `/${link.href}`}
-                      onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.label === "Serviços" ? (
+                      <>
+                        <button
+                          onClick={() =>
+                            setMobileServicesOpen(!mobileServicesOpen)
+                          }
+                          className="w-full flex items-center justify-between px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                        >
+                          <span>{link.label}</span>
+                          <svg
+                            className={`w-4 h-4 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+                        <AnimatePresence>
+                          {mobileServicesOpen && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="overflow-hidden bg-white/5 rounded-lg ml-2"
+                            >
+                              <div className="py-2 px-4 space-y-4">
+                                {categories.map((cat) => (
+                                  <div key={cat.id} className="space-y-2">
+                                    <p className="text-[10px] uppercase tracking-widest text-brand-yellow font-bold opacity-50 px-2">
+                                      {cat.label}
+                                    </p>
+                                    <div className="space-y-1">
+                                      {cat.services.map((service) => (
+                                        <Link
+                                          key={service.slug}
+                                          href={`/servicos/${service.slug}`}
+                                          onClick={() => setMobileOpen(false)}
+                                          className="block px-3 py-2 text-sm text-white/70 hover:text-white"
+                                        >
+                                          {service.title}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <Link
+                        href={isHome ? link.href : `/${link.href}`}
+                        onClick={() => setMobileOpen(false)}
+                        className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
                 <button
