@@ -281,7 +281,38 @@ export const categories: Category[] = [
           "Google Search Console",
         ],
         fullDescription:
-          "Não basta ter um site, ele precisa ser visto por quem procura seu serviço. Nossa equipe de especialistas em SEO utiliza as técnicas mais avançadas de otimização on-page e técnica para elevar o posicionamento orgânico da sua empresa no Google. Além disso, focamos nos 'Core Web Vitals', garantindo que seu site carregue em menos de 1 segundo, o que melhora drasticamente a experiência do usuário e agrada aos algoritmos de busca.",
+          "Não basta ter um site, ele precisa ser visto por quem procura seu serviço. Nossa consultoria de SEO técnico é focada em resultados orgânicos sustentáveis. Analisamos profundamente a arquitetura do seu site, otimizamos o tempo de carregamento para atingir o topo do Google PageSpeed e garantimos que sua estrutura de dados esteja perfeitamente organizada para que os mecanismos de busca compreendam e valorizem seu conteúdo. Aumentamos sua relevância digital para que você atraia leads qualificados de forma constante.",
+        features: [
+          {
+            title: "Auditoria de SEO Técnico",
+            description:
+              "Análise profunda de rastreabilidade, indexação e estrutura de tags HTML.",
+            icon: "Search",
+          },
+          {
+            title: "Core Web Vitals",
+            description:
+              "Otimização focada em velocidade, interatividade e estabilidade visual.",
+            icon: "Zap",
+          },
+          {
+            title: "Estratégia de Conteúdo",
+            description:
+              "Auxiliamos na criação de conteúdo otimizado para as palavras-chave mais lucrativas.",
+            icon: "Smartphone",
+          },
+          {
+            title: "Monitoramento Contínuo",
+            description:
+              "Acompanhamento diário via Search Console e ferramentas de rank tracking.",
+            icon: "Search",
+          },
+        ],
+        gallery: [
+          "/img/seo-hero.png",
+          "/img/seo-performance.png",
+          "/img/seo-audit.png",
+        ],
         metadata: {
           title: "SEO Técnico e Otimização de Sites | CWB Partners",
           description:
