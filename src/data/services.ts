@@ -224,7 +224,38 @@ export const categories: Category[] = [
           "Arquitetura Cloud",
         ],
         fullDescription:
-          "Oferecemos engenharia de software de ponta para projetos que exigem alta complexidade técnica. Nossa abordagem Full Stack garante que tanto a interface quanto o motor do sistema trabalhem em perfeita harmonia. Utilizamos tecnologias como Node.js, Python, PostgreSQL e arquiteturas em nuvem (AWS/Vercel) para entregar soluções robustas, capazes de suportar milhares de acessos simultâneos com segurança e estabilidade.",
+          "Oferecemos engenharia de software de ponta para projetos que exigem alta complexidade técnica. Nossa abordagem Full Stack garante que tanto a interface quanto o motor do sistema trabalhem em perfeita harmonia. Utilizamos tecnologias como React, Next.js, Node.js e PostgreSQL para entregar soluções robustas, capazes de suportar milhares de acessos simultâneos com segurança e estabilidade, sempre focando em performance extrema e escalabilidade via Cloud (AWS/Vercel).",
+        features: [
+          {
+            title: "Frontend Moderno",
+            description:
+              "Interfaces rápidas e responsivas utilizando React, Next.js e Tailwind CSS v4.",
+            icon: "Zap",
+          },
+          {
+            title: "Backend Escalável",
+            description:
+              "Arquitetura robusta em Node.js ou Python, preparada para alta demanda.",
+            icon: "Lock",
+          },
+          {
+            title: "Modelagem de Dados",
+            description:
+              "Estruturação eficiente de bancos de dados relacionais e NoSQL para performance.",
+            icon: "Search",
+          },
+          {
+            title: "Infraestrutura Cloud",
+            description:
+              "Deploy otimizado em ambientes de nuvem com CI/CD e alta disponibilidade.",
+            icon: "Smartphone",
+          },
+        ],
+        gallery: [
+          "/img/fullstack-hero.png",
+          "/img/fullstack-arch.png",
+          "/img/fullstack-speed.png",
+        ],
         metadata: {
           title: "Desenvolvimento Full Stack Profissional | CWB Partners",
           description:
