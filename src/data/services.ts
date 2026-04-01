@@ -250,7 +250,34 @@ export const categories: Category[] = [
           "Automação de Fluxos",
         ],
         fullDescription:
-          "Conectamos o seu ecossistema digital. Desenvolvemos APIs robustas e realizamos integrações complexas entre diferentes sistemas, permitindo que a informação flua sem barreiras. Seja integrando seu site com o WhatsApp para atendimento automatizado, conectando sua loja ao seu software de gestão (ERP) ou criando fluxos de dados via webhooks, garantimos que todas as suas ferramentas trabalhem juntas para economizar tempo e reduzir erros manuais.",
+          "Sua empresa não pode ser uma ilha digital. Desenvolvemos pontes tecnológicas que conectam seu negócio ao mundo. Especialistas em arquitetura de APIs e automação de fluxos, garantimos que seus sistemas conversem de forma fluida e segura. Seja integrando gateways de pagamento, sistemas logísticos, CRMs de mercado ou criando automações inteligentes via WhatsApp, nossa engenharia elimina processos manuais e escala sua produtividade com precisão técnica.",
+        features: [
+          {
+            title: "Integração de APIs de Mercado",
+            description:
+              "Conectamos sua plataforma a serviços como Stripe, Pagar.me, RD Station e sistemas de ERP.",
+            icon: "Zap",
+          },
+          {
+            title: "Automação WhatsApp & Chatbots",
+            description:
+              "Transforme seu atendimento com fluxos automatizados e inteligentes integrados ao seu sistema.",
+            icon: "Smartphone",
+          },
+          {
+            title: "Webhooks & Web Services",
+            description:
+              "Receba e envie dados em tempo real entre diferentes plataformas com total segurança.",
+            icon: "Lock",
+          },
+          {
+            title: "Sincronização de Dados",
+            description:
+              "Mantenha seus estoques, pedidos e clientes sincronizados entre todas as suas ferramentas.",
+            icon: "Search",
+          },
+        ],
+        gallery: ["/img/api-hero.png", "/img/api-whatsapp.png"],
         metadata: {
           title: "Integração de APIs e Chatbots WhatsApp | CWB Partners",
           description:
