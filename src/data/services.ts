@@ -162,7 +162,38 @@ export const categories: Category[] = [
           "Dashboards de Dados",
         ],
         fullDescription:
-          "Sua empresa tem processos únicos que softwares 'de prateleira' não atendem? Nós desenvolvemos sistemas web totalmente customizados para resolver os gargalos do seu negócio. Desde CRMs para gestão de clientes até ERPs complexos para controle financeiro e de estoque, criamos ferramentas que automatizam tarefas repetitivas, centralizam informações e fornecem dados valiosos para a tomada de decisão através de dashboards dinâmicos.",
+          "Desenvolvemos sistemas web totalmente customizados para resolver os gargalos do seu negócio. Desde CRMs para gestão de clientes até ERPs complexos para controle financeiro e de estoque, criamos ferramentas que automatizam tarefas repetitivas, centralizam informações e fornecem dados valiosos para a tomada de decisão através de dashboards dinâmicos e intuitivos. Nossa prioridade é a escalabilidade e a segurança dos seus dados.",
+        features: [
+          {
+            title: "ERP & CRM Customizados",
+            description:
+              "Software moldado exatamente aos seus processos internos, sem funcionalidades desnecessárias.",
+            icon: "Zap",
+          },
+          {
+            title: "Automação de Processos",
+            description:
+              "Reduza erros manuais e ganhe tempo automatizando fluxos de trabalho complexos.",
+            icon: "Smartphone",
+          },
+          {
+            title: "Dashboards de Dados",
+            description:
+              "Visualize KPIs e métricas importantes em tempo real para decisões baseadas em dados.",
+            icon: "Search",
+          },
+          {
+            title: "Arquitetura Escalável",
+            description:
+              "Sistemas preparados para crescer junto com a demanda da sua empresa.",
+            icon: "Lock",
+          },
+        ],
+        gallery: [
+          "/img/systems-hero.png",
+          "/img/systems-arch.png",
+          "/img/systems-automation.png",
+        ],
         metadata: {
           title: "Desenvolvimento de Sistemas Web Sob Medida | CWB Partners",
           description:
