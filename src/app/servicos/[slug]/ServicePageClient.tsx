@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import Image from "next/image";
 import QuoteModal from "@/components/QuoteModal";
 import { Service } from "@/data/services";
 import Link from "next/link";
@@ -67,45 +68,67 @@ export default function ServicePageClient({ service }: Props) {
               <span className="text-accent font-medium">{service.title}</span>
             </motion.div>
 
-            <div className="max-w-3xl">
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="font-[family-name:var(--font-outfit)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
-              >
-                {service.title}
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-white/70 text-lg sm:text-xl leading-relaxed mb-10"
-              >
-                {service.description}
-              </motion.p>
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                onClick={() => setModalOpen(true)}
-                className="px-8 py-4 bg-brand-yellow text-primary-dark font-bold rounded-xl hover:bg-brand-yellow-dark transition-all duration-300 hover:shadow-xl hover:shadow-brand-yellow/20 flex items-center gap-2"
-              >
-                Solicitar orçamento para este serviço
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="max-w-3xl">
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="font-[family-name:var(--font-outfit)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </motion.button>
+                  {service.title}
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-white/70 text-lg sm:text-xl leading-relaxed mb-10"
+                >
+                  {service.description}
+                </motion.p>
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  onClick={() => setModalOpen(true)}
+                  className="px-8 py-4 bg-brand-yellow text-primary-dark font-bold rounded-xl hover:bg-brand-yellow-dark transition-all duration-300 hover:shadow-xl hover:shadow-brand-yellow/20 flex items-center gap-2"
+                >
+                  Solicitar orçamento para este serviço
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </motion.button>
+              </div>
+
+              {service.gallery && service.gallery.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="hidden lg:block relative group"
+                >
+                  <div className="absolute inset-0 bg-accent/20 blur-[60px] rounded-full group-hover:bg-accent/30 transition-all duration-500" />
+                  <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
+                    <Image
+                      src={service.gallery[0]}
+                      alt={service.title}
+                      width={800}
+                      height={600}
+                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+                </motion.div>
+              )}
             </div>
           </div>
         </section>
@@ -155,6 +178,122 @@ export default function ServicePageClient({ service }: Props) {
                     ))}
                   </div>
                 </div>
+
+                {service.features && service.features.length > 0 && (
+                  <div className="pt-8">
+                    <h2 className="font-[family-name:var(--font-outfit)] text-3xl font-bold text-primary-dark mb-10 text-center">
+                      Diferenciais do nosso desenvolvimento
+                    </h2>
+                    <div className="grid sm:grid-cols-2 gap-8">
+                      {service.features.map((feature, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.1 }}
+                          className="p-6 rounded-2xl bg-surface/20 border border-border/40 hover:border-accent/40 transition-all duration-300 group"
+                        >
+                          <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all">
+                            {feature.icon === "Zap" && (
+                              <svg
+                                className="w-6 h-6 text-accent"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                                />
+                              </svg>
+                            )}
+                            {feature.icon === "Smartphone" && (
+                              <svg
+                                className="w-6 h-6 text-accent"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                                />
+                              </svg>
+                            )}
+                            {feature.icon === "Search" && (
+                              <svg
+                                className="w-6 h-6 text-accent"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                />
+                              </svg>
+                            )}
+                            {feature.icon === "Lock" && (
+                              <svg
+                                className="w-6 h-6 text-accent"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                />
+                              </svg>
+                            )}
+                          </div>
+                          <h4 className="text-xl font-bold text-primary-dark mb-2">
+                            {feature.title}
+                          </h4>
+                          <p className="text-text-light text-sm leading-relaxed">
+                            {feature.description}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {service.gallery && service.gallery.length > 1 && (
+                  <div className="pt-8">
+                    <h2 className="font-[family-name:var(--font-outfit)] text-3xl font-bold text-primary-dark mb-10">
+                      Visual & Performance
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {service.gallery.slice(1).map((img, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.2 }}
+                          className="relative aspect-video rounded-2xl overflow-hidden border border-border/50 shadow-lg group"
+                        >
+                          <Image
+                            src={img}
+                            alt={`${service.title} screenshot ${idx + 1}`}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Sidebar / Why Us */}

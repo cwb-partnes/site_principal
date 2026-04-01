@@ -1,9 +1,17 @@
+export interface Feature {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
 export interface Service {
   slug: string;
   title: string;
   description: string;
   items: string[];
   fullDescription: string;
+  features?: Feature[];
+  gallery?: string[];
   metadata: {
     title: string;
     description: string;
@@ -35,6 +43,37 @@ export const categories: Category[] = [
         ],
         fullDescription:
           "Na CWB Partners, criamos sites que não são apenas bonitos, mas que funcionam como uma ferramenta de vendas poderosa para o seu negócio. Utilizamos as tecnologias mais modernas do mercado (Next.js, React, Tailwind CSS) para garantir que seu site seja extremamente rápido, seguro e totalmente adaptável a qualquer dispositivo (computadores, tablets e celulares). Além disso, todos os nossos projetos são desenvolvidos com as melhores práticas de SEO, garantindo uma excelente base para que sua empresa seja encontrada nos mecanismos de busca como o Google.",
+        features: [
+          {
+            title: "Alta Performance",
+            description:
+              "Sites ultra-rápidos com pontuação máxima no Google PageSpeed (Core Web Vitals).",
+            icon: "Zap",
+          },
+          {
+            title: "Design Responsivo",
+            description:
+              "Experiência perfeita em computadores, tablets e smartphones.",
+            icon: "Smartphone",
+          },
+          {
+            title: "SEO Técnico",
+            description:
+              "Arquitetura otimizada para que seu site apareça nos primeiros resultados do Google.",
+            icon: "Search",
+          },
+          {
+            title: "Segurança Avançada",
+            description:
+              "Implementação de protocolos de segurança modernos e certificados SSL.",
+            icon: "Lock",
+          },
+        ],
+        gallery: [
+          "/img/sites-hero.png",
+          "/img/sites-speed.png",
+          "/img/sites-responsive.png",
+        ],
         metadata: {
           title: "Criação de Sites Profissionais em Curitiba | CWB Partners",
           description:
