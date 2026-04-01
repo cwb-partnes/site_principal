@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import QuoteModal from "./QuoteModal";
 
 const navLinks = [
@@ -21,6 +23,8 @@ interface NavbarProps {
 export default function Navbar({ onOpenModal }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -56,14 +60,14 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
-                  href={link.href}
+                  href={isHome ? link.href : `/${link.href}`}
                   className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors duration-300 group"
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-brand-yellow rounded-full transition-all duration-300 group-hover:w-6" />
-                </a>
+                </Link>
               ))}
               <button
                 onClick={onOpenModal}
@@ -112,17 +116,20 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             >
               <div className="px-4 py-6 space-y-1">
                 {navLinks.map((link, i) => (
-                  <motion.a
+                  <motion.div
                     key={link.href}
-                    href={link.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
                   >
-                    {link.label}
-                  </motion.a>
+                    <Link
+                      href={isHome ? link.href : `/${link.href}`}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
                 ))}
                 <button
                   onClick={() => {

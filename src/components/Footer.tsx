@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const services = [
   { name: "Criação de Sites", href: "#servicos" },
@@ -18,6 +20,9 @@ const links = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
     <footer className="relative bg-primary-dark text-white overflow-hidden">
       {/* Top decorative line */}
@@ -67,12 +72,12 @@ export default function Footer() {
             <ul className="space-y-3">
               {services.map((s) => (
                 <li key={s.name}>
-                  <a
-                    href={s.href}
+                  <Link
+                    href={isHome ? s.href : `/${s.href}`}
                     className="text-white/50 hover:text-accent-light text-sm transition-colors duration-300"
                   >
                     {s.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -86,12 +91,12 @@ export default function Footer() {
             <ul className="space-y-3">
               {links.map((l) => (
                 <li key={l.name}>
-                  <a
-                    href={l.href}
+                  <Link
+                    href={isHome ? l.href : `/${l.href}`}
                     className="text-white/50 hover:text-accent-light text-sm transition-colors duration-300"
                   >
                     {l.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
