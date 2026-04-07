@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const plans = [
   {
@@ -52,6 +52,23 @@ interface HostingPlansProps {
 export default function HostingPlans({ onOpenModal }: HostingPlansProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [billingInterval, setBillingInterval] = useState<
+    "mensal" | "semestral" | "anual"
+  >("mensal");
+
+  const calculatePrice = (
+    basePrice: string,
+    interval: "mensal" | "semestral" | "anual",
+  ) => {
+    const base = parseFloat(basePrice.replace(",", "."));
+    let total = base;
+    if (interval === "semestral") total = base * 0.95;
+    if (interval === "anual") total = base * 0.9;
+    return total.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
 
   return (
     <section
@@ -74,9 +91,50 @@ export default function HostingPlans({ onOpenModal }: HostingPlansProps) {
           <h2 className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-dark mb-6">
             Planos de <span className="gradient-text">hospedagem</span>
           </h2>
-          <p className="text-text-light text-lg max-w-2xl mx-auto">
+          <p className="text-text-light text-lg max-w-2xl mx-auto mb-8">
             Hospedagem rápida e segura com suporte técnico especializado.
           </p>
+
+          <div className="flex justify-center mb-4">
+            <div className="bg-white p-1.5 rounded-full border border-border inline-flex shadow-sm">
+              <button
+                onClick={() => setBillingInterval("mensal")}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  billingInterval === "mensal"
+                    ? "bg-accent text-white shadow-md"
+                    : "text-text-light hover:text-primary-dark"
+                }`}
+              >
+                Mensal
+              </button>
+              <button
+                onClick={() => setBillingInterval("semestral")}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  billingInterval === "semestral"
+                    ? "bg-accent text-white shadow-md relative"
+                    : "text-text-light hover:text-primary-dark relative"
+                }`}
+              >
+                Semestral
+                <span className="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                  -5%
+                </span>
+              </button>
+              <button
+                onClick={() => setBillingInterval("anual")}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  billingInterval === "anual"
+                    ? "bg-accent text-white shadow-md relative"
+                    : "text-text-light hover:text-primary-dark relative"
+                }`}
+              >
+                Anual
+                <span className="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                  -10%
+                </span>
+              </button>
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -117,7 +175,7 @@ export default function HostingPlans({ onOpenModal }: HostingPlansProps) {
                       plan.popular ? "text-white" : "text-primary-dark"
                     }`}
                   >
-                    {plan.price}
+                    {calculatePrice(plan.price, billingInterval)}
                   </span>
                   <span
                     className={`text-sm ${plan.popular ? "text-white/70" : "text-text-light"}`}
@@ -156,7 +214,9 @@ export default function HostingPlans({ onOpenModal }: HostingPlansProps) {
 
               <button
                 onClick={() =>
-                  onOpenModal(`Hospedagem Profissional (${plan.name})`)
+                  onOpenModal(
+                    `Hospedagem Profissional::${plan.name} (${billingInterval.charAt(0).toUpperCase() + billingInterval.slice(1)})`,
+                  )
                 }
                 className={`block w-full text-center py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 btn-shine ${
                   plan.popular

@@ -31,18 +31,39 @@ export default function QuoteModal({
     telefone: "",
     servico: "",
     mensagem: "",
+    dominio: "",
+    planoHospedagem: "",
   });
 
   useEffect(() => {
     if (initialService) {
-      setFormData((prev) => ({ ...prev, servico: initialService }));
+      if (initialService.startsWith("Hospedagem Profissional::")) {
+        setFormData((prev) => ({
+          ...prev,
+          servico: "Hospedagem Profissional",
+          planoHospedagem: initialService.split("::")[1],
+        }));
+      } else {
+        setFormData((prev) => ({ ...prev, servico: initialService }));
+      }
     }
   }, [initialService]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const numero = "5541997699014";
-    const msg = `Olá! Solicito orçamento:\n\nNome: ${formData.nome}\nEmpresa: ${formData.empresa}\nE-mail: ${formData.email}\nTelefone: ${formData.telefone}\nServiço: ${formData.servico}\nMensagem: ${formData.mensagem}`;
+    const isHosting = formData.servico === "Hospedagem Profissional";
+
+    let msg = "";
+    if (isHosting) {
+      msg = `Olá! Solicito orçamento para Hospedagem:\n\nNome: ${formData.nome}\nTelefone: ${formData.telefone}\nPlano: ${formData.planoHospedagem}`;
+      if (formData.dominio) {
+        msg += `\nDomínio: ${formData.dominio}`;
+      }
+    } else {
+      msg = `Olá! Solicito orçamento:\n\nNome: ${formData.nome}\nEmpresa: ${formData.empresa}\nE-mail: ${formData.email}\nTelefone: ${formData.telefone}\nServiço: ${formData.servico}\nMensagem: ${formData.mensagem}`;
+    }
+
     window.open(
       `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`,
       "_blank",
@@ -115,121 +136,201 @@ export default function QuoteModal({
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="modal-nome"
-                    className="block text-sm font-medium text-primary-dark mb-1.5"
-                  >
-                    Nome *
-                  </label>
-                  <input
-                    id="modal-nome"
-                    type="text"
-                    name="nome"
-                    required
-                    value={formData.nome}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
-                    placeholder="Seu nome"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="modal-email"
-                    className="block text-sm font-medium text-primary-dark mb-1.5"
-                  >
-                    E-mail
-                  </label>
-                  <input
-                    id="modal-email"
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
-                    placeholder="seu@email.com"
-                  />
-                </div>
-              </div>
+              {formData.servico === "Hospedagem Profissional" ? (
+                <>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        htmlFor="modal-nome"
+                        className="block text-sm font-medium text-primary-dark mb-1.5"
+                      >
+                        Nome *
+                      </label>
+                      <input
+                        id="modal-nome"
+                        type="text"
+                        name="nome"
+                        required
+                        value={formData.nome}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                        placeholder="Seu nome"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="modal-telefone"
+                        className="block text-sm font-medium text-primary-dark mb-1.5"
+                      >
+                        Telefone *
+                      </label>
+                      <input
+                        id="modal-telefone"
+                        type="tel"
+                        name="telefone"
+                        required
+                        value={formData.telefone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                        placeholder="(41) 99999-9999"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="modal-dominio"
+                      className="block text-sm font-medium text-primary-dark mb-1.5"
+                    >
+                      Domínio (opcional)
+                    </label>
+                    <input
+                      id="modal-dominio"
+                      type="text"
+                      name="dominio"
+                      value={formData.dominio}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                      placeholder="seu-dominio.com.br"
+                    />
+                  </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="modal-empresa"
-                    className="block text-sm font-medium text-primary-dark mb-1.5"
-                  >
-                    Empresa
-                  </label>
-                  <input
-                    id="modal-empresa"
-                    type="text"
-                    name="empresa"
-                    value={formData.empresa}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
-                    placeholder="Nome da empresa"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="modal-telefone"
-                    className="block text-sm font-medium text-primary-dark mb-1.5"
-                  >
-                    Telefone
-                  </label>
-                  <input
-                    id="modal-telefone"
-                    type="tel"
-                    name="telefone"
-                    value={formData.telefone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
-                    placeholder="(41) 99999-9999"
-                  />
-                </div>
-              </div>
+                  <div>
+                    <label className="block text-sm font-medium text-primary-dark mb-1.5">
+                      Serviço selecionado
+                    </label>
+                    <div className="w-full px-4 py-3 rounded-xl border border-border bg-surface/50 text-primary-dark/70 text-sm">
+                      Hospedagem Profissional
+                    </div>
+                  </div>
 
-              <div>
-                <label
-                  htmlFor="modal-servico"
-                  className="block text-sm font-medium text-primary-dark mb-1.5"
-                >
-                  Serviço desejado
-                </label>
-                <select
-                  id="modal-servico"
-                  name="servico"
-                  value={formData.servico}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
-                >
-                  <option value="">Selecione o serviço</option>
-                  {serviceOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  <div>
+                    <label className="block text-sm font-medium text-primary-dark mb-1.5">
+                      Plano escolhido
+                    </label>
+                    <div className="w-full px-4 py-3 rounded-xl border border-border bg-surface/50 text-primary-dark/70 text-sm font-semibold">
+                      {formData.planoHospedagem}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        htmlFor="modal-nome"
+                        className="block text-sm font-medium text-primary-dark mb-1.5"
+                      >
+                        Nome *
+                      </label>
+                      <input
+                        id="modal-nome"
+                        type="text"
+                        name="nome"
+                        required
+                        value={formData.nome}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                        placeholder="Seu nome"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="modal-email"
+                        className="block text-sm font-medium text-primary-dark mb-1.5"
+                      >
+                        E-mail
+                      </label>
+                      <input
+                        id="modal-email"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                        placeholder="seu@email.com"
+                      />
+                    </div>
+                  </div>
 
-              <div>
-                <label
-                  htmlFor="modal-mensagem"
-                  className="block text-sm font-medium text-primary-dark mb-1.5"
-                >
-                  Mensagem
-                </label>
-                <textarea
-                  id="modal-mensagem"
-                  name="mensagem"
-                  rows={3}
-                  value={formData.mensagem}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm resize-none"
-                  placeholder="Descreva brevemente o que precisa..."
-                />
-              </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        htmlFor="modal-empresa"
+                        className="block text-sm font-medium text-primary-dark mb-1.5"
+                      >
+                        Empresa
+                      </label>
+                      <input
+                        id="modal-empresa"
+                        type="text"
+                        name="empresa"
+                        value={formData.empresa}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                        placeholder="Nome da empresa"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="modal-telefone"
+                        className="block text-sm font-medium text-primary-dark mb-1.5"
+                      >
+                        Telefone
+                      </label>
+                      <input
+                        id="modal-telefone"
+                        type="tel"
+                        name="telefone"
+                        value={formData.telefone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                        placeholder="(41) 99999-9999"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="modal-servico"
+                      className="block text-sm font-medium text-primary-dark mb-1.5"
+                    >
+                      Serviço desejado
+                    </label>
+                    <select
+                      id="modal-servico"
+                      name="servico"
+                      value={formData.servico}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm"
+                    >
+                      <option value="">Selecione o serviço</option>
+                      {serviceOptions.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="modal-mensagem"
+                      className="block text-sm font-medium text-primary-dark mb-1.5"
+                    >
+                      Mensagem
+                    </label>
+                    <textarea
+                      id="modal-mensagem"
+                      name="mensagem"
+                      rows={3}
+                      value={formData.mensagem}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-primary-dark placeholder:text-text-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm resize-none"
+                      placeholder="Descreva brevemente o que precisa..."
+                    />
+                  </div>
+                </>
+              )}
 
               <button
                 type="submit"
