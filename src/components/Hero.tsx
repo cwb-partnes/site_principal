@@ -20,7 +20,7 @@ const stats = [
 
 export default function Hero() {
   const [currentPhrase, setCurrentPhrase] = useState(0);
-  const [displayed, setDisplayed] = useState("");
+  const [displayed, setDisplayed] = useState("Sites Profissionais");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {

@@ -15,6 +15,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.cwbpartners.com.br"),
   title: "CWB Partners | Desenvolvimento Web Full Stack",
   description:
     "Criação de sites profissionais, lojas virtuais, sistemas web sob medida, SEO e hospedagem. Mais de 10 anos de experiência e 200+ clientes atendidos.",
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
     "Curitiba",
     "full stack",
   ],
+  alternates: {
+    canonical: "https://www.cwbpartners.com.br",
+  },
   openGraph: {
     title: "CWB Partners | Desenvolvimento Web Full Stack",
     description:
@@ -36,9 +40,33 @@ export const metadata: Metadata = {
     siteName: "CWB Partners Tecnologia",
     type: "website",
     locale: "pt_BR",
+    images: ["/img/og-banner.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   robots: { index: true, follow: true },
   authors: [{ name: "CWB Partners Tecnologia" }],
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "CWB Partners Tecnologia",
+  url: "https://www.cwbpartners.com.br",
+  telephone: "+55-41-99769-9014",
+  email: "contato@cwbpartners.com.br",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Curitiba",
+    addressRegion: "PR",
+    addressCountry: "BR",
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Curitiba",
+  },
+  serviceType: "Desenvolvimento Web",
 };
 
 export default function RootLayout({
@@ -51,6 +79,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/img/favicon.png" />
         <meta name="theme-color" content="#0A1628" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="font-[family-name:var(--font-inter)] bg-white text-text antialiased">
         {children}
