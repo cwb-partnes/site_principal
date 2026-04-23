@@ -20,7 +20,7 @@ const stats = [
 
 export default function Hero() {
   const [currentPhrase, setCurrentPhrase] = useState(0);
-  const [displayed, setDisplayed] = useState("");
+  const [displayed, setDisplayed] = useState("Sites Profissionais");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export default function Hero() {
             </motion.span>
 
             <h1 className="font-[family-name:var(--font-outfit)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Criamos <span className="gradient-text">{displayed}</span>
+              Criamos <span className="gradient-text">{displayed}</span>{" "}
               <span className="inline-block w-0.5 h-10 lg:h-14 bg-accent-light ml-1 animate-pulse align-middle" />
               <br />
               <span className="text-white/90">que geram resultados</span>
