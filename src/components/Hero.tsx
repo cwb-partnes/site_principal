@@ -96,7 +96,7 @@ export default function Hero() {
               Criamos <span className="gradient-text">{displayed}</span>{" "}
               <span className="inline-block w-0.5 h-10 lg:h-14 bg-accent-light ml-1 animate-pulse align-middle" />
               <br />
-              <span className="text-white/90">que geram resultadosabb</span>
+              <span className="text-white/90">que geram resultados</span>
             </h1>
 
             <p className="text-lg text-white/60 max-w-lg mb-8 leading-relaxed">
