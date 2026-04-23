@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { categories } from "@/data/services";
-import QuoteModal from "./QuoteModal";
 
 const navLinks = [
   { href: "#home", label: "Home" },

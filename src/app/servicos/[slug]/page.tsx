@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { allServices } from "@/data/services";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsappCta from "@/components/WhatsappCta";
-import QuoteModal from "@/components/QuoteModal";
 import ServicePageClient from "./ServicePageClient";
 
 interface Props {

@@ -36,17 +36,22 @@ export default function QuoteModal({
   });
 
   useEffect(() => {
-    if (initialService) {
+    if (!initialService) return;
+
+    const syncService = setTimeout(() => {
       if (initialService.startsWith("Hospedagem Profissional::")) {
         setFormData((prev) => ({
           ...prev,
           servico: "Hospedagem Profissional",
           planoHospedagem: initialService.split("::")[1],
         }));
-      } else {
-        setFormData((prev) => ({ ...prev, servico: initialService }));
+        return;
       }
-    }
+
+      setFormData((prev) => ({ ...prev, servico: initialService }));
+    }, 0);
+
+    return () => clearTimeout(syncService);
   }, [initialService]);
 
   const handleSubmit = (e: React.FormEvent) => {
